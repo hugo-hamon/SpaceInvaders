@@ -19,7 +19,6 @@ class Projectile(Area2D):
 		# Check collision
 		for body in self.get_overlapping_bodies():
 			if body.is_in_group("Enemy"):
-				print("ok")
 				self.spaceship.score += 1
 				self.queue_free()
 				body.queue_free()

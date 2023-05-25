@@ -12,12 +12,10 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 27.7358
-height = 0.0
+radius = 25.6266
+height = 19.9926
 
-[node name="Meteorite" type="RigidBody2D" groups=[
-"Enemy",
-]]
+[node name="Meteorite" type="RigidBody2D" groups=["Enemy"]]
 collision_mask = 0
 gravity_scale = 0.0
 contacts_reported = 2
@@ -30,4 +28,5 @@ animation = "Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 3.37323, -2.3811 )
+rotation = 1.53065
 shape = SubResource( 2 )

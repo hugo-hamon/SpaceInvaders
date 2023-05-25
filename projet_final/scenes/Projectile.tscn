@@ -15,9 +15,8 @@ animations = [ {
 radius = 4.64207
 height = 8.82381
 
-[node name="Projectile" type="Area2D" groups=[
-"Projectile",
-]]
+[node name="Projectile" type="Area2D" groups=["Projectile"]]
+scale = Vector2( 1.5, 1.5 )
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

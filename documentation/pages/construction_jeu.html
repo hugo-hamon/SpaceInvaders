@@ -7,6 +7,9 @@
     <title>Documentation du jeu Space Invaders</title>
     <link rel="stylesheet" href="../css/construction_jeu.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 
 <body>
@@ -27,8 +30,9 @@
             <h1 class="doc-title">Construction du Jeu</h1>
             <p>
                 La partie "Construction du Jeu" explique le processus de développement des différentes fonctionnalités
-                du jeu Space Invaders comprenant les météorites, les projectiles, le vaisseau spatial, le code principal
-                et le menu du jeu. En suivant les instructions de cette section, vous serez en mesure de créer un Space
+                du jeu Space Invaders comprenant les météorites, les projectiles, le vaisseau spatial et le code
+                principal
+                du jeu. En suivant les instructions de cette section, vous serez en mesure de créer un Space
                 Invaders complet et fonctionnel.
             </p>
         </section>
@@ -139,8 +143,8 @@ class Projectile(Area2D):
                 Une fois ca fait comme pour avec les autres objets diriger vous vers le script du vaisseau spatial et
                 ajouter le code suivant dans la classe: </br>
             <pre> <code>
-from godot import *
 from godot import exposed, export
+from godot import *
 import random
 
 @exposed
@@ -150,6 +154,7 @@ class Spaceship(KinematicBody2D):
     direction = export(Vector2, Vector2(0, 0))
     time = export(float, 0.5)
     score = export(int, 0)
+    sprite_size = Vector2(0, 0)
 
     def _ready(self):
         self.screen_size = self.get_viewport().size
@@ -163,7 +168,7 @@ class Spaceship(KinematicBody2D):
         self.projectile_timer.start()
 
     def get_sprite_size(self):
-        sprite_size = self.sprite.get_sprite_frames().get_frame(self.sprite_name,0).get_size()
+        sprite_size = self.sprite.get_sprite_frames().get_frame("Idle", 0).get_size()
         scale = self.sprite.get_transform().get_scale()
         return Vector2(sprite_size.x * scale.x, sprite_size.y * scale.y)
 
@@ -203,6 +208,7 @@ class Spaceship(KinematicBody2D):
         b = self.projectile_scene.instance()
         self.owner.add_child(b)
         b.set_position(self.get_position() + Vector2(0, -40))
+                
             </code> </pre>
             </p>
             <p>
@@ -243,23 +249,93 @@ class Spaceship(KinematicBody2D):
                 développer le code principal. Voici le code pour le script principal :
 
             <pre><code>
-                
+from godot import exposed, export
+from godot import *
+import random
+
+@exposed
+class Level(Node):
+
+    def _ready(self):
+        self.mob_scene = ResourceLoader.load("res://scenes/Meteorite.tscn")
+        self.score_label = self.get_node("ScoreLabel")
+        self.player = self.get_node("Spaceship")
+        print(self.player)
+        self.screen_size = self.get_viewport().size
+        self.spawn_timer = self.get_node("MeteoriteTimer")
+        self.spawn_timer.connect("timeout", self, "_on_spawn_timer_timeout")
+        self.spawn_timer.start()
+
+    def _process(self, delta):
+        self.score_label.set_text(f"Score: {self.player.score}")
+
+    def _on_spawn_timer_timeout(self) -> None:
+        self.spawn_mob()
+        new_time = max(0.5, -1 / 50 * self.player.score + 2)
+        self.spawn_timer.set_wait_time(random.uniform(new_time, new_time + 0.25))
+
+    def spawn_mob(self) -> None:
+        mob = self.mob_scene.instance()
+        self.add_child(mob)
+        position = Vector2(random.uniform(50, self.screen_size.x - 50), -100)
+        mob.set_position(position)
+        mob.set_linear_velocity(Vector2(0, random.randint(150, 200)))
+
+    def game_over(self) -> None:
+        # stop the spawn timer
+        self.spawn_timer.stop()
+        # delete all mobs
+        for mob in self.get_children():
+            if str(mob.get_name()) == "Meteorite" or str(mob.get_name()).startswith("@Meteorite"):
+                mob.queue_free()
+        # resete the score
+        self.player.score = 0
+        # move the player back to the start position
+        self.player.set_position(Vector2(self.screen_size.x / 2, self.screen_size.y - 100))
+        # start the spawn timer
+        self.spawn_timer.start()
             </code></pre>
             </p>
-        </section>
-
-        <section>
-            <h2 class="doc-title">Développement du Menu</h2>
             <p>
-                Dans cette dernière partie, on va se concentrer sur le développement du menu du jeu, qui permet aux
-                joueurs de démarrer ou de quitter le jeu. Voici les étapes pour développer cette fonctionnalité :
+                Ce script permet de créer des météorites à intervalle régulier. Il permet aussi de gérer le score du
+                joueur et de réinitialiser le jeu lorsque le joueur perd.
             </p>
+        </section>
+        <section>
+            <h2 class="doc-title">Quelques ajustements</h2>
+            <p>
+                Maintenant que tout est en place quelque ajustement sont encore à faire.
+                Premièrement, dirigez vous vers la scène Meteorite et modifier les choses suivante:
+
             <ul>
-                <li>Créez une scène pour représenter le menu.</li>
-                <li>Ajoutez des boutons ou des éléments interactifs pour démarrer ou quitter le jeu.</li>
-                <li>Développez le code nécessaire pour gérer les actions du joueur, comme le lancement du jeu ou la
-                    fermeture de l'application.</li>
+                <li>
+                    RigidBody2D: </br>
+                    - Gravity Scale = 0 (Car le mouvement des météorites est géré par le script)</br>
+                    - contact monitor = true (Pour détecter les collisions)</br>
+                    - contacts Report = 2 (Pour détecter les collisions avec le vaisseau spatial et les
+                    projectiles)</br>
+                    - collision / Mask : décocher tout pour que les météorites ne puissent pas entrer en collision
+                    avec elle même.</br>
+                </li>
             </ul>
+            Maintenant dirigez vous vers la scène Spaceship et modifier les choses suivante:
+            <ul>
+                <li>
+                    ProjectileTimer: </br>
+                    - Wait Time = 0.5 (Pour que le joueur ne puisse pas tirer trop rapidement)</br>
+                    - One shot = True </br>
+                </li>
+                <li>
+                    AnimatedSprite: </br>
+                    - Renommer l'animation "default" en "idle".
+                </li>
+            </ul>
+            </p>
+            <p>
+                Une fois ces ajustements fait, vous pouvez tester votre jeu. Dans le cas où vous auriez des erreurs,
+                vérifier que vous avez bien suivi toutes les étapes. Si cela ne fonctionne toujours pas, vous pouvez
+                comparer avec le projet final.
+            </p>
         </section>
     </main>
 

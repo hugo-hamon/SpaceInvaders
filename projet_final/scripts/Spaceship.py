@@ -23,7 +23,7 @@ class Spaceship(KinematicBody2D):
 		self.projectile_timer.start()
 
 	def get_sprite_size(self):
-		sprite_size = self.sprite.scale
+		sprite_size = self.sprite.get_sprite_frames().get_frame("Idle", 0).get_size()
 		scale = self.sprite.get_transform().get_scale()
 		return Vector2(sprite_size.x * scale.x, sprite_size.y * scale.y)
 
