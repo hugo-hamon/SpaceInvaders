@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation du jeu Space Invaders</title>
+    <link rel="stylesheet" href="../css/creation_projet.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1 id="nav-bar-title">Documentation du jeu Space Invaders</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="./installation.html">Installation</a></li>
+                <li><a href="./creation_projet.html" class="active">Création du Projet</a></li>
+                <li><a href="./construction_jeu.html">Construction du Jeu</a></li>
+                <li><a href="./jeu_existant.html">Compléter un Jeu Existant</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h1 class="doc-title">Création du Projet</h1>
+            <p>
+                La partie "Création du Projet" explique comment configurer un nouveau projet Space Invaders dans
+                l'éditeur Godot, créer les différentes scènes nécessaires et ajouter des scripts pour les
+                fonctionnalités du jeu.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Explication</h2>
+            <p>
+                Avant de commencer, il est important de comprendre les différents éléments du projet et à quoi ils
+                servent :
+            </p>
+            <ul>
+                <li>
+                    <strong>Scènes</strong>: Les scènes sont les éléments principaux du jeu. Dans Space Invaders,
+                    on a besoin de scènes pour le vaisseau spatial, les météorites, les projectiles,
+                    etc.
+                </li>
+                <li>
+                    <strong>Scripts</strong>: Les scripts sont utilisés pour ajouter des fonctionnalités et des
+                    comportements aux objets du jeu. On aura besoin de scripts pour gérer les mouvements du
+                    vaisseau spatial, la création des météorites, la détection des collisions, etc.
+                </li>
+                <li>
+                    <strong>Taille de la fenêtre</strong>: Il est important de paramétrer la taille de la fenêtre du
+                    jeu pour qu'elle convienne aux différents sprites. On définira une taille qui
+                    correspond à la résolution attendue du jeu.
+                </li>
+                <li>
+                    <strong>Contrôles</strong>: On aura besoin de définir les contrôles pour les mouvements du vaisseau
+                    spatial. Par exemple on pourra utiliser les flèches pour se déplacer ou bien ZQSD.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Création des Scènes et Scripts</h2>
+            <p>
+                Dans les étapes suivantes, on va créer les scènes et les scripts nécessaires pour le jeu.
+            </p>
+            <ol>
+                <li>
+                    Ouvrez Godot et créez un nouveau projet en sélectionnant "Nouveau Projet" dans le menu principal.
+                    Et choisissez un nom pour le projet, par exemple "Space Invaders". Une fois le projet
+                    créé, rendez-vous dans le dossier du projet et créez les dossiers suivants :
+                    assets, scenes et scripts.
+                </li>
+                <li>
+                    Créez une nouvelle scène en sélectionnant "Node2D" dans les scènes
+                    proposées. Une fois créée, renommez la scène en Main et enregistrez-la dans le dossier scenes
+                    du projet. Cette scène sera la scène principale du jeu. Elle contiendra tous les autres éléments du
+                    jeu commme les météorites, les projectiles, etc.
+                </li>
+                <li>
+                    Créez maintenant une scène pour le vaisseau spatial, en sélectionnant en haut à gauche scène /
+                    Nouvelle Scène / Node2D / Autre Noeud / KinematicBody2D. Une fois créée, renommez la scène en
+                    Spaceship et enregistrez-la dans le dossier scenes du projet. Cette scène contiendra le vaisseau
+                    spatial.
+                </li>
+                <li>
+                    De la même manière, créez une scène pour les météorites avec comme nom Meteorite et avec la Node
+                    Rigidbody2D. Une scène pour le menu avec comme nom Menu et avec la Node Control. Finallement,
+                    créez une scène pour les projectiles avec comme nom Projectile et avec la Node Area2D.
+                </li>
+                <li>
+                    Avant de passer à l'étape suivante, en haut diriger vous dans l'onglet AssetLib et chercher le
+                    package "PythonScript" et l'installer puis redémarrer Godot. Ce package permet d'utiliser le langage
+                    python pour les
+                    scripts.
+                </li>
+                <li>
+                    Maintenant que les scènes sont créées, il faut créer les scripts pour les fonctionnalités du jeu.
+                    Pour cela, sélectionnez une scène, clique droit sur la scène et sélectionnez attacher un script.
+                    Sélectionnez le langage python et le dossier scripts. Enregistrez le script avec le même nom que la
+                    scène. Par exemple, pour la scène Spaceship, le script sera Spaceship.py. Faite ca pour toutes les
+                    scènes.
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Paramétrage du Projet / Contrôles</h2>
+            <p>
+                Pour paramétrer le projet et définir les contrôles du jeu, suivez ces étapes :
+            </p>
+            <ol>
+                <li>
+                    Dans Godot, accédez aux paramètres du projet en sélectionnant "Paramètres du Projet" dans le menu
+                    "Projet".
+                </li>
+                <li>
+                    Dans les paramètres du projet, accédez à la section "Display / Window" et définissez la taille de la
+                    fenêtre à 700x1000 et décocchez la case "Resizable".
+                </li>
+                <li>
+                    Dans la section "Contrôles", définissez les contrôles du jeu en ajoutant des actions pour les
+                    mouvements du vaisseau spatial. Ajouter les actions suivantes :
+                    <ul>
+                        <li>up</li>
+                        <li>down</li>
+                        <li>left</li>
+                        <li>right</li>
+                        <li>shoot</li>
+                        <li>escape</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Continuer la construction du jeu</h2>
+            <p>
+                Maintenant que les scènes et les scripts sont créés, il faut continuer la construction du jeu en
+                ajoutant les éléments du jeu dans les scènes et en ajoutant les fonctionnalités dans les scripts.
+                Pour cela dirigez-vous vers la partie "Construction du Jeu".
+            </p>
+        </section>
+    </main>
+
+
+</body>
+
+</html>

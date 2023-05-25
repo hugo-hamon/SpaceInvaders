@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation du jeu Space Invaders</title>
+    <link rel="stylesheet" href="../css/installation.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1 id="nav-bar-title">Documentation du jeu Space Invaders</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="./installation.html" class="active">Installation</a></li>
+                <li><a href="./creation_projet.html">Création du Projet</a></li>
+                <li><a href="./construction_jeu.html">Construction du Jeu</a></li>
+                <li><a href="./jeu_existant.html">Compléter un Jeu Existant</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h1 class="doc-title">Installation</h1>
+            <p>
+                Cette page vous guide à travers les étapes pour installer et configurer les outils
+                nécessaires pour travailler sur le projet Space Invaders. Pour plus de détails sur
+                l'installation de godot / python vous pouvez consulter la page github du projet à 
+                cette <a href="https://github.com/touilleMan/godot-python">adresse</a>.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Étape 1 : Installation de Python</h2>
+            <p>
+                La première étape consiste à installer Python sur votre machine. Vous pouvez le
+                télécharger à partir de la commande suivante sous Linux :
+                <code>$ apt install python3 python3-pip python3-venv build-essential</code>.
+            </p>
+            <p>
+                Après avoir téléchargé et installé Python, vous pouvez vérifier que l'installation
+                a réussi en ouvrant un terminal et en tapant : <code>python --version</code> ou 
+                <code>python3 --version</code>
+            </p>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Étape 2 : Installation de Godot</h2>
+            <p>
+                Une fois Python installé, vous pouvez installer Godot. Pour ce faire, toujours sous
+                Linux, cloner le projet avec la commande suivante : 
+                <code>git clone https://github.com/touilleMan/godot-python.git</code>
+            </p>
+            <p>
+                Ensuite, vous pouvez installer Godot en exécutant les commandes suivantes : </br>
+                - <code>$ cd &lt;godot-python-dir&gt;</code> </br>
+                - <code>$ python3 -m venv venv</code> </br>
+                - <code>$ source venv/bin/activate</code> </br>
+                - <code>$ pip install -r requirements.txt</code> </br>
+                - <code>$ scons platform=x11-64 release</code>
+                - <code>$ scons platform=x11-64 test</code>
+            </p>
+            <p>
+                Une fois l'installation terminée, dans le dossier build/x11-64/platforms se trouve un
+                fichier Godot_vx.x.x-stable_x11.64. Lancez-le pour démarrer Godot.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Étape 3 : Installation du projet Space Invaders</h2>
+            <p>
+                Une fois Python et Godot installés, vous êtes prêt à commencer à travailler
+                sur le projet Space Invaders. Il vous suffit de cloner le projet avec la commande
+                suivante : </br>
+                <code>git clone https://github.com/hugo-hamon/SpaceInvaders.git</code>
+            </p>
+            <p>
+                Le projet peut être utilisé de plusieurs manières : </br>
+                - En utilisant l'éditeur Godot pour modifier / exécuter le projet déjà existant dans le dossier projet_final.</br>
+                - En complétant le projet existant dans le dossier projet_a_completer et grâce à la documentation dans l'onglet "Compléter un jeu Existant".</br>
+                - En créant un nouveau projet à partir de zéro en suivant la documentation dans l'onglet "Création du Projet".
+            </p>            
+        </section>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation du jeu Space Invaders</title>
+    <link rel="stylesheet" href="../css/construction_jeu.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1 id="nav-bar-title">Documentation du jeu Space Invaders</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="./installation.html">Installation</a></li>
+                <li><a href="./creation_projet.html">Création du Projet</a></li>
+                <li><a href="./construction_jeu.html" class="active">Construction du Jeu</a></li>
+                <li><a href="./jeu_existant.html">Compléter un Jeu Existant</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h1 class="doc-title">Construction du Jeu</h1>
+            <p>
+                La partie "Construction du Jeu" explique le processus de développement des différentes fonctionnalités
+                du jeu Space Invaders comprenant les météorites, les projectiles, le vaisseau spatial, le code principal
+                et le menu du jeu. En suivant les instructions de cette section, vous serez en mesure de créer un Space
+                Invaders complet et fonctionnel.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Développement des Météorites</h2>
+            <p>
+                Dans cette section, on va compléter les fonctionnalités des météorites, qui sont les ennemis du jeu.
+                Dans un premier temps, on va compléter l'arborescence de la scène, puis on va développer le script qui
+                gère les collisions avec les projectiles et le vaisseau spatial.
+            </p>
+            <p>
+                Pour commencer ajoutez deux nodes à la scène :
+            <ul>
+                <li>Une node animatedSprite pour représenter l'apparence visuelle de la météorite.</li>
+                <li>Une node collisionShape2D pour représenter la zone de collision de la météorite.</li>
+            </ul>
+            Ensuite choisissez pour la node collisionShape2D une forme capsule et ajustez la taille de la zone de
+            collision pour qu'elle corresponde à la taille de la météorite.
+            Pour l'animatedSprite clicker dessus ensuite frame, ajouter SpriteFrames, ensuite cliquer dessus et
+            ajouter une image de météorite présente dans le dossier assets.
+            </p>
+            <p>
+                Une fois ca fait diriger vous vers le script de la météorite et ajouter le code suivant dans la classe:
+                </br>
+            <pre> <code>
+@exposed
+class Mob(RigidBody2D):
+                        
+    def _ready(self):
+        pass
+                        
+    def _process(self, delta):
+        """Fonction appelée à chaque frame"""
+        if collision := self.get_colliding_bodies() or self.position.y > 1000:
+            self.get_parent().game_over()
+            self.queue_free()   
+            </code> </pre>
+            </p>
+            <p>
+                Il permet de vérifier si la météorite est en collision avec un autre objet ou si elle est sortie de
+                l'écran. Si c'est le cas, la fonction game_over() est appelée pour terminer la partie et la météorite
+                est supprimée.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Développement des Projectiles</h2>
+            <p>
+                Pour cette partie, on va compléter les fonctionnalités des projectiles, qui sont utilisés par le
+                vaisseau spatial pour détruire les météorites. Les étapes sont exactement les mêmes que pour les
+                météorites :
+            <ul>
+                <li>Ajout de collisionShape2D pour représenter la zone de collision du projectile</li>
+                <li>Ajout de animatedSprite pour représenter l'apparence visuelle du projectile</li>
+            </ul>
+            </p>
+            <p>
+                Une fois ca fait diriger vous vers le script du projectile et ajouter le code suivant dans la classe:
+                </br>
+            <pre> <code>
+@exposed
+class Projectile(Area2D):
+
+	speed = export(int, 500)
+
+	def _ready(self):
+		self.spaceship = self.get_parent().get_node("Spaceship")
+
+	def _physics_process(self, delta):
+		self.position += Vector2(0, -self.speed * delta)
+		if self.position.y < 0:
+			self.queue_free()
+
+	def _process(self, delta):
+		# Check collision
+		for body in self.get_overlapping_bodies():
+			if body.is_in_group("Enemy"):
+				self.spaceship.score += 1
+				self.queue_free()
+				body.queue_free()
+				break
+            </code> </pre>
+            </p>
+            <p>
+                Ce script permet de déplacer le projectile vers le haut de l'écran et de vérifier si le projectile est
+                en collision avec une météorite. Si c'est le cas, le score du joueur est incrémenté et la météorite est
+                supprimée. De plus on remarque le groupe Enemy, il faut donc ajouter ce groupe aux météorites.
+                Pour ce faire cliquer sur la météorite, ensuite cliquer sur Node, ensuite cliquer sur groupes et ajouter
+                le groupe Enemy.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Développement du Vaisseau Spatial</h2>
+            <p>
+                Pour cette partie, on va compléter les fonctionnalités du vaisseau spatial, qui est le personnage
+                contrôlé par le joueur. Les étapes sont un peu différentes des précédentes. Cependant
+                l'arborescence de la scène reste la même à une exception près, on va ajouter un node Timer pour
+                gérer le délai entre les tirs du vaisseau spatial. Les étapes sont donc les suivantes :
+            </p>
+            <ul>
+                <li>Ajout de collisionShape2D pour représenter la zone de collision du vaisseau spatial</li>
+                <li>Ajout de animatedSprite pour représenter l'apparence visuelle du vaisseau spatial</li>
+                <li>Ajout d'une node timer que l'on renomme en "ProjectileTimer"</li>
+            </ul>
+            <p>
+                Une fois ca fait comme pour avec les autres objets diriger vous vers le script du vaisseau spatial et
+                ajouter le code suivant dans la classe: </br>
+            <pre> <code>
+from godot import *
+from godot import exposed, export
+import random
+
+@exposed
+class Spaceship(KinematicBody2D):
+
+    velocity = export(int, 300)
+    direction = export(Vector2, Vector2(0, 0))
+    time = export(float, 0.5)
+    score = export(int, 0)
+
+    def _ready(self):
+        self.screen_size = self.get_viewport().size
+        self.sprite = self.get_node("AnimatedSprite")
+        self.sprite_size = self.get_sprite_size()
+
+        self.projectile_scene = ResourceLoader.load("res://scenes/Projectile.tscn")
+
+        self.set_position(Vector2(self.screen_size.x / 2, self.screen_size.y - self.sprite_size.y))
+        self.projectile_timer = self.get_node("ProjectileTimer")
+        self.projectile_timer.start()
+
+    def get_sprite_size(self):
+        sprite_size = self.sprite.get_sprite_frames().get_frame(self.sprite_name,0).get_size()
+        scale = self.sprite.get_transform().get_scale()
+        return Vector2(sprite_size.x * scale.x, sprite_size.y * scale.y)
+
+    def _physics_process(self, delta):
+        self.direction = Vector2(0, 0)
+
+        self.process_input()
+        self.check_screen_colision()
+        
+        self.direction = self.move_and_slide(self.direction, Vector2.UP)
+
+    def process_input(self) -> None:
+        if Input.is_action_pressed("right"):
+            self.direction.x = self.velocity
+        if Input.is_action_pressed("left"):
+            self.direction.x = -self.velocity
+        if Input.is_action_pressed("up"):
+            self.direction.y = -self.velocity
+        if Input.is_action_pressed("down"):
+            self.direction.y = self.velocity
+        if Input.is_action_pressed("shoot"):
+            if self.projectile_timer.is_stopped():
+                self.shoot()
+                self.projectile_timer.start(self.time)
+
+    def check_screen_colision(self) -> None:
+        if self.get_position().x > self.screen_size.x - self.sprite_size.x / 2:
+            self.set_position(Vector2(self.screen_size.x - self.sprite_size.x / 2, self.get_position().y))
+        if self.get_position().x < self.sprite_size.x / 2:
+            self.set_position(Vector2(self.sprite_size.x / 2, self.get_position().y))
+        if self.get_position().y > self.screen_size.y - self.sprite_size.y / 2:
+            self.set_position(Vector2(self.get_position().x, self.screen_size.y - self.sprite_size.y / 2))
+        if self.get_position().y < self.sprite_size.y / 2:
+            self.set_position(Vector2(self.get_position().x, self.sprite_size.y / 2))
+
+    def shoot(self):
+        b = self.projectile_scene.instance()
+        self.owner.add_child(b)
+        b.set_position(self.get_position() + Vector2(0, -40))
+            </code> </pre>
+            </p>
+            <p>
+                Ce script permet de déplacer le vaisseau spatial dans les quatre directions et de tirer des projectiles
+                vers le haut de l'écran. On a ajouter un timer pour gérer le délai entre les tirs. On a aussi ajouter
+                une variable score qui sera incrémenter à chaque fois qu'une météorite est détruite.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Développement du Code Principal</h2>
+            <p>
+                L'on va maintenant se concentrer sur le développement du code principal du jeu. Ce code va gérer les
+                mécanismes de jeu tels que la création des météorites, la gestion des collisions et le score. Voici les
+                étapes pour pouvoir y arriver :
+            </p>
+            <ul>
+                <li>
+                    Ajouter un timer et nommez le "MeteoriteTimer". Il nous permettra de créer des météorites à
+                    intervalle régulier.
+                </li>
+                <li>
+                    En sélectionnant le background dans le dossier assets, glisser le dans la scène de manière à ce
+                    qu'il recouvre toute la scène.
+                </li>
+                <li>
+                    Ajouter une node "Label" et nommez la "ScoreLabel". Elle nous permettra d'afficher le score du
+                    joueur. Vous pouvez modifier la police et la taille du texte dans les propriétés de la node. De plus
+                    déplacer la en haut à gauche de l'écran et modifier le texte à "Score : 0".
+                </li>
+                <li>
+                    Finalement, à côté du petit plus en dessous de scènes il y a un bouton instancier une autre scène,
+                    cliquer dessus et ajouter la scène Spaceship.
+                </li>
+            </ul>
+            <p>
+                Maintenant que nous avons tous les éléments nécessaires pour le jeu, nous allons pouvoir commencer à
+                développer le code principal. Voici le code pour le script principal :
+
+            <pre><code>
+                
+            </code></pre>
+            </p>
+        </section>
+
+        <section>
+            <h2 class="doc-title">Développement du Menu</h2>
+            <p>
+                Dans cette dernière partie, on va se concentrer sur le développement du menu du jeu, qui permet aux
+                joueurs de démarrer ou de quitter le jeu. Voici les étapes pour développer cette fonctionnalité :
+            </p>
+            <ul>
+                <li>Créez une scène pour représenter le menu.</li>
+                <li>Ajoutez des boutons ou des éléments interactifs pour démarrer ou quitter le jeu.</li>
+                <li>Développez le code nécessaire pour gérer les actions du joueur, comme le lancement du jeu ou la
+                    fermeture de l'application.</li>
+            </ul>
+        </section>
+    </main>
+
+</body>
+
+</html>
