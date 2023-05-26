@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://script/Mob.py" type="Script" id=1]
+[ext_resource path="res://assets/asteroid.png" type="Texture" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 22.7437
+height = 32.0032
+
+[node name="Mob" type="RigidBody2D" groups=[
+"Enemy",
+]]
+position = Vector2( 0.442486, 0.783428 )
+collision_mask = 2147483648
+gravity_scale = 0.0
+contacts_reported = 2
+contact_monitor = true
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.0316162, 0.0725098 )
+frames = SubResource( 1 )
+animation = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2.33597, -1.66855 )
+rotation = 1.5708
+shape = SubResource( 2 )
