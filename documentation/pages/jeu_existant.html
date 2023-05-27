@@ -2,110 +2,176 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation du jeu Space Invaders</title>
-    <link rel="stylesheet" href="../css/jeu_existant.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Documentation du jeu Space Invaders</title>
+	<link rel="stylesheet" href="../css/jeu_existant.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <h1 id="nav-bar-title">Documentation du jeu Space Invaders</h1>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Accueil</a></li>
-                <li><a href="./installation.html">Installation</a></li>
-                <li><a href="./creation_projet.html">Création du Projet</a></li>
-                <li><a href="./construction_jeu.html">Construction du Jeu</a></li>
-                <li><a href="./jeu_existant.html" class="active">Compléter un Jeu Existant</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-<h1 style="color:#000;">Class: Interface</h1>
-<ul style="list-style-type: none;">
-	<li>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">__init__</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				__init__(self, planer) -> None
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">No description !</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Move_spaceship</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Move_spaceship(self, direction: Direction) -> None
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Déplace le vaisseau dans la direction donnée (up, down, left, right)</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Shoot</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Shoot(self) -> None
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Tire un projectile</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Get_spaceship_position</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Get_spaceship_position(self) -> Tuple[int, int]
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Retourne la position du vaisseau</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Get_spaceship_size</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Get_spaceship_size(self) -> Tuple[int, int]
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Retourne la taille du vaisseau</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Get_spaceship_speed</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Get_spaceship_speed(self) -> int
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Retourne la vitesse du vaisseau</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Get_screen_size</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Get_screen_size(self) -> Tuple[int, int]
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Retourne la taille de l'écran</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Is_input_pressed</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Is_input_pressed(self, direction: Direction) -> bool
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Retourne True si la touche direction est pressée, False sinon</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Get_score</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Get_score(self) -> int
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Retourne le score actuel</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Increase_score</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Increase_score(self) -> None
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Augmente le score de 1</p>
-		</div>
-		<div style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
-			<h3 style="color:black;font-weight:bold;">Spaceship_collides</h3>
-			<div style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
-				Spaceship_collides(self) -> bool
-			</div>
-			<p style="color:black;word-break:break-word;margin-top:10px;">Retourne True si le vaisseau est en collision avec un ennemi, False sinon</p>
-		</div>
-	</li>
-</ul>
-    </main>
+	<header>
+		<h1 id="nav-bar-title">Documentation du jeu Space Invaders</h1>
+		<nav>
+			<ul>
+				<li><a href="../index.html">Accueil</a></li>
+				<li><a href="./installation.html">Installation</a></li>
+				<li><a href="./creation_projet.html">Création du Projet</a></li>
+				<li><a href="./construction_jeu.html">Construction du Jeu</a></li>
+				<li><a href="./jeu_existant.html" class="active">Compléter un Jeu Existant</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section>
+			<h2>Compléter un Jeu Existant</h2>
+			<p>
+				Il est possible de coder le jeu space invader en passant par une interface.
+				La liste des commandes sont disponibles ci-dessous. Pour pouvoir les utiliser,
+				il suffit d'ajouter ces commandes / codes dans le fichier edit.py dans la fonction run.
+			</p>
+			<p>
+				Les étapes à suivre sont les suivantes :
+			<ul>
+				<li>
+					Gérer les déplacements du vaisseau et les tirs du vaisseau
+				</li>
+				<li>
+					Gérer les collisions entre les projectiles et les ennemis ainsi qu'avec les bords de l'écran
+				</li>
+				<li>
+					Faire en sorte que si un astéroïde atteint le bas de l'écran, le joueur perd.
+				</li>
+			</ul>
+			</p>
+		</section>
+		<h1 style="color:#000;">Class: Interface</h1>
+		<ul style="list-style-type: none;">
+			<li>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">__init__</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						__init__(self, planer) -> None
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">No description !</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Move_spaceship</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Move_spaceship(self, user_input: UserInput) -> None
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Déplace le vaisseau dans la direction
+						donnée (up, down, left, right)</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Shoot</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Shoot(self) -> None
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Tire un projectile</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Get_spaceship_position</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Get_spaceship_position(self) -> Tuple[int, int]
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Retourne la position du vaisseau</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Get_spaceship_size</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Get_spaceship_size(self) -> Tuple[int, int]
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Retourne la taille du vaisseau</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Get_spaceship_speed</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Get_spaceship_speed(self) -> int
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Retourne la vitesse du vaisseau</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Get_asteroid_position</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Get_asteroid_position(self) -> List[Tuple[int, int]]
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Retourne la position de l'astéroïde
+					</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Get_screen_size</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Get_screen_size(self) -> Tuple[int, int]
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Retourne la taille de l'écran</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Is_input_pressed</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Is_input_pressed(self, user_input: UserInput) -> bool
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Retourne True si la touche direction
+						est pressée, False sinon</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Get_score</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Get_score(self) -> int
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Retourne le score actuel</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Increase_score</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Increase_score(self) -> None
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Augmente le score de 1</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Spaceship_collides</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Spaceship_collides(self) -> bool
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Retourne True si le vaisseau est en
+						collision avec un ennemi, False sinon</p>
+				</div>
+				<div
+					style="background-color: white;color: #404040;border: 1px solid grey;border-radius:5px;padding-left:15px;padding-right:15px;margin-bottom:15px;">
+					<h3 style="color:black;font-weight:bold;">Reset_game</h3>
+					<div
+						style="background-color:black;color:#E5E6D3;padding-left:5px;padding-right:5px;display: inline-block;border: 2px solid black;border-radius:5px">
+						Reset_game(self) -> None
+					</div>
+					<p style="color:black;word-break:break-word;margin-top:10px;">Réinitialise le jeu</p>
+				</div>
+			</li>
+		</ul>
+	</main>
 
 </body>
 

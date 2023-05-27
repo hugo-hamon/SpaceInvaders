@@ -1,6 +1,6 @@
-from .interface import Interface, Direction
+from .interface import Interface, UserInput
 from godot import exposed, export
-from typing import Tuple
+from typing import Tuple, List
 from .edit import run
 from godot import *
 import random
@@ -44,41 +44,27 @@ class Planer(KinematicBody2D):
 	def _physics_process(self, delta):
 		self.direction = Vector2(0, 0)
 
-		self.spaceship_collides()
 		run(self.interface)
 
-		self.process_input()
 		self.direction = self.move_and_slide(self.direction, Vector2.UP)
-
-	def process_input(self) -> None:
-		if Input.is_action_pressed("right"):
-			self.direction.x = self.velocity
-		if Input.is_action_pressed("left"):
-			self.direction.x = -self.velocity
-		if Input.is_action_pressed("up"):
-			self.direction.y = -self.velocity
-		if Input.is_action_pressed("down"):
-			self.direction.y = self.velocity
-		if Input.is_action_pressed("shoot"):
-			if self.bullet_timer.is_stopped():
-				self.shoot()
-				self.bullet_timer.start(self.time)
 
 	# Interface functions
 	def shoot(self):
-		b = self.bullet_scene.instance()
-		self.owner.add_child(b)
-		b.set_position(self.get_position() + Vector2(0, -40))
+		if self.bullet_timer.is_stopped():
+			b = self.bullet_scene.instance()
+			self.owner.add_child(b)
+			b.set_position(self.get_position() + Vector2(0, -40))
+			self.bullet_timer.start(self.time)
 
-	def move_spaceship(self, direction: Direction) -> None:
+	def move_spaceship(self, user_input: UserInput) -> None:
 		"""Déplace le vaisseau dans la direction donnée (up, down, left, right)"""
-		if direction == Direction.UP:
+		if user_input == UserInput.UP:
 			self.direction.y = -self.velocity
-		elif direction == Direction.DOWN:
+		elif user_input == UserInput.DOWN:
 			self.direction.y = self.velocity
-		elif direction == Direction.LEFT:
+		elif user_input == UserInput.LEFT:
 			self.direction.x = -self.velocity
-		elif direction == Direction.RIGHT:
+		elif user_input == UserInput.RIGHT:
 			self.direction.x = self.velocity
 
 	def get_spaceship_position(self) -> Tuple[int, int]:
@@ -93,20 +79,30 @@ class Planer(KinematicBody2D):
 		"""Retourne la vitesse du vaisseau"""
 		return self.velocity
 
+	def get_asteroid_position(self) -> List[Tuple[int, int]]:
+		"""Retourne la position des astéroides"""
+		return [
+			(mob.get_position().x, mob.get_position().y)
+			for mob in self.get_parent().get_children()
+			if str(mob.get_name()) == "Mob" or str(mob.get_name()).startswith("@Mob")
+		]
+
 	def get_screen_size(self) -> Tuple[int, int]:
 		"""Retourne la taille de l'écran"""
 		return self.screen_size.x, self.screen_size.y
 
-	def is_input_pressed(self, direction: Direction) -> bool:
+	def is_input_pressed(self, user_input: UserInput) -> bool:
 		"""Retourne True si la touche direction est pressée, False sinon"""
-		if direction == Direction.UP:
+		if user_input == UserInput.UP:
 			return Input.is_action_pressed("up")
-		elif direction == Direction.DOWN:
+		elif user_input == UserInput.DOWN:
 			return Input.is_action_pressed("down")
-		elif direction == Direction.LEFT:
+		elif user_input == UserInput.LEFT:
 			return Input.is_action_pressed("left")
-		elif direction == Direction.RIGHT:
+		elif user_input == UserInput.RIGHT:
 			return Input.is_action_pressed("right")
+		elif user_input == UserInput.SPACE:
+			return Input.is_action_pressed("shoot")
 
 	def get_score(self) -> int:
 		"""Retourne le score actuel"""
@@ -125,3 +121,7 @@ class Planer(KinematicBody2D):
 				mob.get_name()).startswith("@Mob"))
 			and mob.is_collide() for mob in parent.get_children()
 		)
+
+	def reset_game(self) -> None:
+		"""Reset le jeu"""
+		self.get_parent().game_over()
