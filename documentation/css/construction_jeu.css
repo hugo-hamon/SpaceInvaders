@@ -37,7 +37,8 @@ nav ul li a {
     color: #fff;
 }
 
-nav ul li a.active::after, nav ul li a:hover::after {
+nav ul li a.active::after,
+nav ul li a:hover::after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -82,4 +83,21 @@ code {
 
 .code-class {
     font-size: 1.2em;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.image {
+    flex-basis: 15%;
+    width: 100%;
+    max-width: fit-content;
+}
+
+.text {
+    font-size: 20px;
+    padding-left: 20px;
 }

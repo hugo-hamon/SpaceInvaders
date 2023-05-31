@@ -50,11 +50,18 @@
                 <li>Une node animatedSprite pour représenter l'apparence visuelle de la météorite.</li>
                 <li>Une node collisionShape2D pour représenter la zone de collision de la météorite.</li>
             </ul>
-            Ensuite choisissez pour la node collisionShape2D une forme capsule et ajustez la taille de la zone de
-            collision pour qu'elle corresponde à la taille de la météorite.
-            Pour l'animatedSprite clicker dessus ensuite frame, ajouter SpriteFrames, ensuite cliquer dessus et
-            ajouter une image de météorite présente dans le dossier assets.
             </p>
+            <div class="container">
+                <div class="image">
+                    <img src="../images/meteorite-scene.png" alt="Arborescence de la scène de la météorite">
+                </div>
+                <div class="text">
+                    Ensuite choisissez pour la node collisionShape2D une forme capsule et ajustez la taille de la zone
+                    de collision pour qu'elle corresponde à la taille de la météorite.
+                    Pour l'animatedSprite clicker dessus ensuite frame, ajouter SpriteFrames, ensuite cliquer dessus et
+                    ajouter une image de météorite présente dans le dossier assets.
+                </div>
+            </div>
             <p>
                 Une fois ca fait diriger vous vers le script de la météorite et ajouter le code suivant dans la classe:
                 </br>
@@ -90,6 +97,13 @@ class Mob(RigidBody2D):
                 <li>Ajout de animatedSprite pour représenter l'apparence visuelle du projectile</li>
             </ul>
             </p>
+            <div class="container">
+                <div class="image">
+                    <img src="../images/projectile-scene.png" alt="Arborescence de la scène des projectiles">
+                </div>
+                <div class="text">
+                </div>
+            </div>
             <p>
                 Une fois ca fait diriger vous vers le script du projectile et ajouter le code suivant dans la classe:
                 </br>
@@ -139,6 +153,13 @@ class Projectile(Area2D):
                 <li>Ajout de animatedSprite pour représenter l'apparence visuelle du vaisseau spatial</li>
                 <li>Ajout d'une node timer que l'on renomme en "ProjectileTimer"</li>
             </ul>
+            <div class="container">
+                <div class="image">
+                    <img src="../images/spaceship-scene.png" alt="Arborescence de la scène du vaisseau spatial">
+                </div>
+                <div class="text">
+                </div>
+            </div>
             <p>
                 Une fois ca fait comme pour avec les autres objets diriger vous vers le script du vaisseau spatial et
                 ajouter le code suivant dans la classe: </br>
@@ -244,6 +265,13 @@ class Spaceship(KinematicBody2D):
                     cliquer dessus et ajouter la scène Spaceship.
                 </li>
             </ul>
+            <div class="container">
+                <div class="image">
+                    <img src="../images/main-scene.png" alt="Arborescence de la scène principale">
+                </div>
+                <div class="text">
+                </div>
+            </div>
             <p>
                 Maintenant que nous avons tous les éléments nécessaires pour le jeu, nous allons pouvoir commencer à
                 développer le code principal. Voici le code pour le script principal :
@@ -306,29 +334,44 @@ class Level(Node):
             <p>
                 Maintenant que tout est en place quelque ajustement sont encore à faire.
                 Premièrement, dirigez vous vers la scène Meteorite et modifier les choses suivante:
-
-            <ul>
-                <li>
-                    RigidBody2D: </br>
-                    - Gravity Scale = 0 (Car le mouvement des météorites est géré par le script)</br>
-                    - contact monitor = true (Pour détecter les collisions)</br>
-                    - contacts Report = 2 (Pour détecter les collisions avec le vaisseau spatial et les
-                    projectiles)</br>
-                    - collision / Mask : décocher tout pour que les météorites ne puissent pas entrer en collision
-                    avec elle même.</br>
-                </li>
-            </ul>
+            <div class="container">
+                <div class="image">
+                    <img src="../images/meteorite-setting.png" alt="Paramètre de la météorite">
+                </div>
+                <div class="text">
+                    <ul>
+                        RigidBody2D: </br>
+                        - Gravity Scale = 0 (Car le mouvement des météorites est géré par le script)</br>
+                        - contact monitor = true (Pour détecter les collisions)</br>
+                        - contacts Report = 2 (Pour détecter les collisions avec le vaisseau spatial et les
+                        projectiles)</br>
+                        - collision / Mask : décocher tout pour que les météorites ne puissent pas entrer en
+                        collision
+                        avec elle même.</br>
+                    </ul>
+                </div>
+            </div>
             Maintenant dirigez vous vers la scène Spaceship et modifier les choses suivante:
             <ul>
-                <li>
-                    ProjectileTimer: </br>
-                    - Wait Time = 0.5 (Pour que le joueur ne puisse pas tirer trop rapidement)</br>
-                    - One shot = True </br>
-                </li>
-                <li>
-                    AnimatedSprite: </br>
+                <div class="container">
+                    <div class="image">
+                        <img src="../images/timer-setting.png" alt="Paramètre du timer">
+                    </div>
+                    <div class="text">
+                        ProjectileTimer: </br>
+                        - Wait Time = 0.5 (Pour que le joueur ne puisse pas tirer trop rapidement)</br>
+                        - One shot = True </br>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="image">
+                        <img src="../images/animated-sprite-setting.png" alt="Paramètre des animations" width="1000">
+                    </div>
+                    <div class="text">
+                        AnimatedSprite: </br>
                     - Renommer l'animation "Default" en "Idle".
-                </li>
+                    </div>
+                </div>
             </ul>
             </p>
             <p>
